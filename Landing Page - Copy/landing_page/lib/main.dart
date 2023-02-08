@@ -1,64 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:landing_page/cookie_page.dart';
-
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
+void main(){
+  runApp(new MaterialApp(
+    title:"Page Navigation",
+    home:Firstpage(),
+  ));
+}
+class Firstpage extends StatelessWidget{
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: MyHomePage(),
+  Widget build(BuildContext context){
+    return Scaffold(
+      appBar: AppBar(title:Text("Events")),
+      body: Center(
+          child:ElevatedButton(onPressed:(){
+            Navigator.push(context,MaterialPageRoute(
+                builder:(context)=>secondpage()
+            ));
+          },
+            child: Text('Go!!'),
+          )
+
+      ),
+
     );
   }
 }
-
-class MyHomePage extends StatefulWidget {
+class secondpage extends StatelessWidget {
   @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
+  Widget build(BuildContext context){
+    return Scaffold
+      (
+        appBar: AppBar(
+            title:Text("Second Page ")
+        ),
+        body: Center(
+            child:ElevatedButton(
+                child:Text("Back"),
+                onPressed:(){
+                  Navigator.pop(context);
+                }
 
-class _MyHomePageState extends State<MyHomePage>
-    with SingleTickerProviderStateMixin {
-  late var _tabController = TabController(length: 3, vsync: this);
-
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: 3, vsync: this);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0.0,
-        centerTitle: true,
-        title: Text('Techkriti',
-            style: TextStyle(
-                fontFamily: 'Varela',
-                fontSize: 24.0,
-                color: Color(0xFF545D68))),
-      ),
-      body: ListView(
-        padding: EdgeInsets.only(left: 20.0),
-        children: <Widget>[
-          SizedBox(height: 180.0),
-          Container(
-              height: MediaQuery.of(context).size.height - 50.0,
-              width: double.infinity,
-              child: TabBarView(
-                  controller: _tabController,
-                  children: [
-                    CookiePage(),
-                    CookiePage(),
-                    CookiePage(),
-                  ]
-              )
-          )
-        ],
-      ),
+            )
+        )
     );
   }
 }
